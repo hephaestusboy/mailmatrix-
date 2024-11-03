@@ -1,33 +1,33 @@
 <img width="1280" alt="readme-banner" src="https://github.com/user-attachments/assets/35332e92-44cb-425b-9dff-27bcf1023c6c">
 
-# [Project Name] 🎯
+# [MailMatrix] 🎯
 
 
 ## Basic Details
-### Team Name: [Name]
+### Team Name: [Green Minds]
 
 
 ### Team Members
-- Team Lead: [Name] - [College]
-- Member 2: [Name] - [College]
-- Member 3: [Name] - [College]
+- Team Lead: [Alan Mathew] - [Muthoot Institute]
+- Member 2: [Alicia Therese Dominic] - [Muthoot Institute]
+- Member 3: [Devika Unnikrishnan] - [Muthoot Institute]
 
 ### Project Description
-[2-3 lines about what your project does]
+[A simple program for delayed sending of mail]
 
 ### The Problem (that doesn't exist)
-[What ridiculous problem are you solving?]
+[The Instantanious connectivity of email has reduced anticipation of people.]
 
 ### The Solution (that nobody asked for)
-[How are you solving it? Keep it fun!]
+[Email now follows the traveling time of normal mail(postal) service]
 
 ## Technical Details
 ### Technologies/Components Used
 For Software:
-- [Languages used]
-- [Frameworks used]
-- [Libraries used]
-- [Tools used]
+- [Python,HTML,CSS]
+- []
+- []
+- [Openrouteservice, ChatGPT]
 
 For Hardware:
 - [List main components]
@@ -37,10 +37,10 @@ For Hardware:
 ### Implementation
 For Software:
 # Installation
-[commands]
+[clone the repository]
 
 # Run
-[commands]
+[Run the mainscheduler file for only backend output.]
 
 ### Project Documentation
 For Software:
