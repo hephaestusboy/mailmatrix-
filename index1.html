@@ -21,5 +21,39 @@
         <input type="password" placeholder="Password" id="password" required>
         <button type="submit">Log In</button>
     </form>
+
+    <script>
+        async function handleLogin(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            const email = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                const response = await fetch('http://localhost:3000/login', { // Adjust URL to your server
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email, password }),
+                });
+
+                const result = await response.json();
+                if (response.ok) {
+                    // If login is successful, redirect or show success message
+                    console.log('Login successful:', result);
+                    // Optionally save credentials to a file on the server
+                } else {
+                    // Handle error messages
+                    document.getElementById('error-message').innerText = result.message;
+                    document.getElementById('error-message').style.display = 'block';
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('error-message').innerText = 'An error occurred while logging in.';
+                document.getElementById('error-message').style.display = 'block';
+            }
+        }
+    </script>
 </body>
 </html>
