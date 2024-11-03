@@ -13,19 +13,19 @@
 - Member 3: [Devika Unnikrishnan] - [Muthoot Institute of Technology & Science,Varikoli]
 
 ### Project Description
-[A simple program for delayed sending of mail]
+[A simple program for delayed sending of mail. Instead of instant delivery, emails are delayed to mimic the waiting time of traditional mail, adding a nostalgic twist to modern communication.]
 
 ### The Problem (that doesn't exist)
-[The Instantanious connectivity of email has reduced anticipation of people.]
+[In today's world,the instantanious connectivity of email has reduced anticipation of people. MailMatrix addresses this "problem" by slowing down email delivery, simulating the waiting period of traditional mail based]
 
 ### The Solution (that nobody asked for)
-[Email now follows the traveling time of normal mail(postal) service]
+[Email now follows the traveling time of normal mail(postal) service re-creating the anticipation of traditional mail in a digital format.]
 
 ## Technical Details
 ### Technologies/Components Used
 For Software:
-- [Python,HTML,CSS]
-- []
+- [Python]
+- [HTML,CSS, JAVASCRIPT,NODE.JS]
 - []
 - [Openrouteservice, ChatGPT]
 
@@ -54,24 +54,10 @@ For Software:
 ![Workflow](Add your workflow/architecture diagram here)
 *Add caption explaining your workflow*
 
-For Hardware:
-
-# Schematic & Circuit
-![Circuit](Add your circuit diagram here)
-*Add caption explaining connections*
-
-![Schematic](Add your schematic diagram here)
-*Add caption explaining the schematic*
-
 # Build Photos
 ![Components](Add photo of your components here)
 *List out all components shown*
 
-![Build](Add photos of build process here)
-*Explain the build steps*
-
-![Final](Add photo of final product here)
-*Explain the final build*
 
 ### Project Demo
 # Video
@@ -82,9 +68,9 @@ For Hardware:
 [Add any extra demo materials/links]
 
 ## Team Contributions
-- [Name 1]: [Specific contributions]
-- [Name 2]: [Specific contributions]
-- [Name 3]: [Specific contributions]
+- [Alan Mathew]: [Managed the backend, setting up the logic to calculate sender-recipient distances and implementing the email scheduling functionality.]
+- [Alicia Therese Dominic]: [Focused on frontend design, creating a user-friendly interface and ensuring a seamless experience for users interacting with the platform.]
+- [Devika Unnikrishnan]: [Assisted in frontend development by styling components, refining layout, and enhancing visual elements for an engaging look and feel.]
 
 ---
 Made with ❤️ at TinkerHub Useless Projects 
