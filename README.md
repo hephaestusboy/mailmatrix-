@@ -25,30 +25,39 @@
 ### Technologies/Components Used
 For Software:
 - [Python]
-- [HTML,CSS, JAVASCRIPT,NODE.JS]
-- []
+- [HTML,CSS, JAVASCRIPT,NODEJS]
+- [PYTHON: os,requests,math,time,datetime,json,smtplib,socket,MIMEtext,MIMEMultipart,subprocess,process
+-  JS : express,path,fs,cors]
 - [Openrouteservice, ChatGPT]
 
 ### Implementation
 For Software:
 # Installation
-[clone the repository]
+[clone the repository
+for linux machines, run linuxinstall.sh]
 
 # Run
 [Run the mainscheduler file for only backend output.]
+[For linux, run 'run.sh' file.]
+[Username and password for default login:
+Username : user@example.com
+Password : password123]
 
 ### Project Documentation
 For Software:
 
 # Screenshots (Add at least 3)
-![Screenshot1](Add screenshot 1 here with proper name)
-*Add caption explaining what this shows*
+![![Login Page](https://github.com/user-attachments/assets/f71113a2-91a1-4a29-a13e-37f1d5d20ffc)
+](Add screenshot 1 here with proper name)
+*Screenshot shows initial Login Page*
 
-![Screenshot2](Add screenshot 2 here with proper name)
-*Add caption explaining what this shows*
+![![Index page](https://github.com/user-attachments/assets/4f8a967d-0fe9-4ea2-a31d-a1c8edb5a07d)
+](Add screenshot 2 here with proper name)
+*Screenshot showing index page which contails all the mails in the queue*
 
-![Screenshot3](Add screenshot 3 here with proper name)
-*Add caption explaining what this shows*
+![![Submit Page](https://github.com/user-attachments/assets/341a9a12-0ffe-4238-a4d2-b3d4ba38d7f5)
+](Add screenshot 3 here with proper name)
+*Screenshot shows compose message page*
 
 # Diagrams
 ![Workflow](Add your workflow/architecture diagram here)
