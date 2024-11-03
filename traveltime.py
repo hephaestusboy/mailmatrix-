@@ -2,6 +2,8 @@ import requests
 import math
 import os
 
+travel_times = []
+
 def get_coordinates(location_name):
     """Get coordinates (latitude, longitude) for a given location name using Nominatim API."""
     url = "https://nominatim.openstreetmap.org/search"
@@ -50,47 +52,77 @@ def calculate_travel_time(api_key, origin, destination):
 
     if response.status_code == 200 and 'features' in response.json():
         travel_time = response.json()['features'][0]['properties']['segments'][0]['duration'] / 60  # Convert seconds to minutes
-        return travel_time
+        return float(travel_time)  # Ensure it returns a float
     else:
-        error_message = response.json().get('error', {}).get('message', 'Unknown error')
-
         # Fallback to vector distance calculation
         distance = haversine(origin_lat, origin_lon, destination_lat, destination_lon)
         average_speed_kmh = 60  # Average speed in km/h
         travel_time = (distance / average_speed_kmh) * 60  # Convert hours to minutes
-        return travel_time
+        return float(travel_time)
 
-def get_last_location_from_data_file():
-    """Retrieve the last location entry from data.txt."""
+
+
+def get_current_location():
+    """Get the device's current geographical location using IP-based geolocation."""
+    try:
+        response = requests.get("https://ipinfo.io/json")
+        if response.status_code == 200:
+            data = response.json()
+            # Split the 'loc' field which is in 'latitude,longitude' format
+            return data['loc']
+        else:
+            raise Exception("Error fetching current location from IP info.")
+    except Exception as e:
+        print(f"Error retrieving current location: {e}")
+        # Set a default location as a fallback if the API call fails
+        return "40.7128,-74.0060"  # Example location (New York City)
+
+def get_locations_from_data_file():
+    """Retrieve all location entries from data.txt along with the full lines."""
+    locations = []
+    full_lines = []
     with open('data.txt', 'r') as file:
-        lines = file.readlines()
-        if lines:
-            last_entry = lines[-1]  # Get the last entry
-            location = last_entry.split("Location: ")[1].split(",")[0].strip()
-            return location
-    return None
+        for line in file:
+            if "Location: " in line:
+                location = line.split("Location: ")[1].split(",")[0].strip()
+                locations.append(location)
+                full_lines.append(line.strip())  # Store the full line for moving later
+    return locations, full_lines
 
 def main():
     # Read the API key from the api.txt file
     with open('api.txt', 'r') as file:
-        api_key = file.read().strip()  # Read the API key and remove any surrounding whitespace
+        api_key = file.read().strip()
 
-    # Example of current location (latitude, longitude)
-    current_location = "40.7128,-74.0060"  # Replace with actual current location if needed
+    # Get the device's current location dynamically
+    current_location = get_current_location()
+    print(f"Current location: {current_location}")
 
-    # Get destination location from data.txt
-    destination_name = get_last_location_from_data_file()
+    # Get all destination locations and their corresponding lines from data.txt
+    destination_names, full_lines = get_locations_from_data_file()
 
-    if destination_name:
+    global travel_times
+
+    # Calculate and print each travel time for each location entry
+    for i, destination_name in enumerate(destination_names):
         try:
             destination_coords = get_coordinates(destination_name)
-            # Calculate travel time
             travel_time = calculate_travel_time(api_key, current_location, destination_coords)
-            print(f"{travel_time:.2f}")
-        except Exception as e:
-            print(f"Error: {e}")
-    else:
-        print("No valid location found in data.txt.")
+            travel_times.append(f"{float(travel_time):.2f}")
+            
+            # Move the processed line to data1.txt
+            with open('data1.txt', 'a') as data1_file:
+                data1_file.write(full_lines[i] + "\n")
 
-if __name__ == "__main__":
-    main()
+        except Exception as e:
+            print(f"Error for {destination_name}: {e}")
+
+    # After processing, update data.txt by removing processed lines
+    with open('data.txt', 'r') as file:
+        lines = file.readlines()
+
+    with open('data.txt', 'w') as file:
+        for line in lines:
+            if line.strip() not in full_lines:  # Only keep lines not processed
+                file.write(line)
+

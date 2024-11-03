@@ -14,7 +14,7 @@ EMAIL_ADDRESS = 'thisisatestmail19@gmail.com'
 EMAIL_PASSWORD = 'tgzlfmejkwiuzlqr'
 
 # Function to load email data from data.txt and scheduling times from email_schedule.json
-def load_email_data(data_file="data.txt", schedule_file="email_schedule.json"):
+def load_email_data(data_file="data1.txt", schedule_file="email_schedule.json"):
     email_schedule = []
 
     # Load email details from data.txt
@@ -45,7 +45,7 @@ def load_email_data(data_file="data.txt", schedule_file="email_schedule.json"):
                 scheduled_time = datetime.strptime(schedule_times[i]["send_time"], '%Y-%m-%d %H:%M:%S')
                 email_schedule.append({
                     "to_email": email_info["to_email"],
-                    "subject": f"Message from {email_info['location']}",
+                    "subject": f"Message to {email_info['location']}",
                     "body": f"{email_info['message']}\n\nLocation: {email_info['location']}",
                     "send_time": scheduled_time
                 })
