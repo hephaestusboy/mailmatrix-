@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Inbox</title>
+    <link rel="stylesheet" href="styles2.css">
+</head>
+<body>
+    <header>
+        <h1>Inbox</h1>
+    </header>
+    <div class="container">
+        <aside class="sidebar">
+            <button class="compose-btn" onclick="window.location.href='index3.html';">Compose</button>
+        </aside>
+        <main class="email-list">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Recipient</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="emailTableBody">
+                    <tr class="success">
+                        <td>john@example.com</td>
+                        <td>Nov 1, 2024</td>
+                        <td>Sent</td>
+                    </tr>
+                    <tr>
+                        <td>jane@example.com</td>
+                        <td>Nov 2, 2024</td>
+                        <td>Draft</td>
+                    </tr>
+                    <tr class="success">
+                        <td>alex@example.com</td>
+                        <td>Nov 3, 2024</td>
+                        <td>Sent</td>
+                    </tr>
+                </tbody>
+            </table>
+        </main>
+    </div>
+
+    <script>
+        // Check localStorage for last sent email and date
+        const lastEmail = localStorage.getItem('lastEmail');
+        const lastDate = localStorage.getItem('lastDate');
+
+        if (lastEmail && lastDate) {
+            // Create a new row for the sent email
+            const newRow = document.createElement('tr');
+            newRow.className = 'success';
+            newRow.innerHTML = `<td>${lastEmail}</td><td>${lastDate}</td><td>Sent</td>`;
+            
+            // Append the new row to the email list
+            document.getElementById('emailTableBody').appendChild(newRow);
+            
+            // Clear localStorage
+            localStorage.removeItem('lastEmail');
+            localStorage.removeItem('lastDate');
+        }
+    </script>
+</body>
+</html>

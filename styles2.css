@@ -1,0 +1,97 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    color: #333;
+    background-color: #f1f3f4;
+}
+
+header {
+    background-color: #3f92c3;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.container {
+    display: flex;
+    height: calc(100vh - 80px); /* Account for header height */
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #ffffff;
+    padding: 20px;
+    border-right: 1px solid #ddd;
+}
+
+.compose-btn {
+    background-color: #4285f4;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.menu {
+    list-style: none;
+    margin-top: 20px;
+}
+
+.menu li {
+    margin-bottom: 15px;
+}
+
+.menu li a {
+    color: #333;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.menu li a.active {
+    font-weight: bold;
+    color: #010a19;
+}
+
+.email-list {
+    flex: 1;
+    padding: 20px;
+    background-color: #f1f3f4;
+    overflow-y: auto;
+}
+
+.email-list table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.email-list th, .email-list td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.email-list th {
+    background-color: #f1f1f1;
+    color: #666;
+}
+
+.success td {
+    color: #4CAF50; /* Green color for successfully sent emails */
+    font-weight: bold;
+}
+
+tr:hover {
+    background-color: #f9f9f9;
+}
