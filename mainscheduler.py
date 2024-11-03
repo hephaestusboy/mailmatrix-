@@ -1,8 +1,9 @@
 import time
 import os
 import subprocess
+from multiprocessing import Process
 
-def monitor_data_file(data_file='data.txt', interval=5):
+def monitor_data_file(data_file='data.txt', interval=20):
     """Monitor data.txt for changes and update the schedule accordingly."""
     last_modified_time = os.path.getmtime(data_file)
 
@@ -11,7 +12,16 @@ def monitor_data_file(data_file='data.txt', interval=5):
         if current_modified_time != last_modified_time:
             last_modified_time = current_modified_time
             print("Detected changes in data.txt. Updating schedule...")
-            update_schedule()
+
+            # Start update_schedule and send_emails in separate processes
+            update_process = Process(target=update_schedule)
+            send_process = Process(target=send_emails)
+
+            update_process.start()
+            send_process.start()
+
+            # Do not join the processes here, let them run independently
+
         else:
             print("No changes detected. Waiting...")
         
@@ -20,10 +30,8 @@ def monitor_data_file(data_file='data.txt', interval=5):
 def update_schedule():
     """Run shedulefinder.py to update the email schedule for all entries."""
     try:
-        # Run shedulefinder.py which should handle all entries
         subprocess.run(['python3', 'shedulefinder.py'], check=True)
         print("Schedule updated successfully.")
-        send_emails()  # Call the email sender after updating
     except subprocess.CalledProcessError as e:
         print(f"Error while updating schedule: {e}")
 

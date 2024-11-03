@@ -13,51 +13,38 @@ SMTP_PORT = 587
 EMAIL_ADDRESS = 'thisisatestmail19@gmail.com'
 EMAIL_PASSWORD = 'tgzlfmejkwiuzlqr'
 
-# Function to load email data from data.txt and scheduling times from email_schedule.json
-def load_email_data(data_file="data1.txt", schedule_file="email_schedule.json"):
-    email_schedule = []
 
-    # Load email details from data.txt
+def load_email_data(data_file="data1.txt", schedule_file="email_schedule.json"):
+    """Load email details and schedule times from data1.txt and email_schedule.json."""
+    email_data = []
     with open(data_file, 'r') as file:
-        email_data = []
         for line in file:
             parts = line.strip().split(", ")
-            if len(parts) != 3:  # Ensure there are exactly 3 parts
-                print(f"Skipping malformed line: '{line.strip()}'")
-                continue  # Skip malformed lines
-
-            try:
+            if len(parts) == 3:
                 email = parts[0].split(": ")[1]
-                location = parts[1].split(": ")[1].strip().strip("'")  # Strip single quotes if any
+                location = parts[1].split(": ")[1].strip("'")
                 message = parts[2].split(": ")[1]
                 email_data.append({"to_email": email, "location": location, "message": message})
-            except IndexError:
-                print(f"Malformed line details: '{line.strip()}'")
 
-    # Load send times from email_schedule.json
     with open(schedule_file, 'r') as file:
         schedule_times = json.load(file)
 
-    # Combine email details with schedule times
+    email_schedule = []
     for i, email_info in enumerate(email_data):
         if i < len(schedule_times):
-            try:
-                scheduled_time = datetime.strptime(schedule_times[i]["send_time"], '%Y-%m-%d %H:%M:%S')
-                email_schedule.append({
-                    "to_email": email_info["to_email"],
-                    "subject": f"Message to {email_info['location']}",
-                    "body": f"{email_info['message']}\n\nLocation: {email_info['location']}",
-                    "send_time": scheduled_time
-                })
-            except ValueError:
-                print(f"Error parsing send_time for email: {schedule_times[i]['send_time']}")
+            scheduled_time = datetime.strptime(schedule_times[i]["send_time"], '%Y-%m-%d %H:%M:%S')
+            email_schedule.append({
+                "to_email": email_info["to_email"],
+                "subject": f"Message to {email_info['location']}",
+                "body": f"{email_info['message']}\n\nLocation: {email_info['location']}",
+                "send_time": scheduled_time
+            })
 
-    return email_schedule
+    return email_schedule, schedule_times
 
 
-
-# Function to send an email
 def send_email(to_email, subject, body):
+    """Send an email using the provided configuration."""
     msg = MIMEMultipart()
     msg['From'] = EMAIL_ADDRESS
     msg['To'] = to_email
@@ -75,63 +62,85 @@ def send_email(to_email, subject, body):
         print(f"Failed to send email to {to_email}: {e}")
         return False
 
-# Function to check network connectivity
+
 def check_network():
+    """Check network connectivity."""
     try:
         socket.create_connection(("8.8.8.8", 53))
         return True
     except OSError:
         return False
 
-# Function to schedule and send emails
-def schedule_emails():
-    # Load the email schedule from data.txt and email_schedule.json
-    email_schedule = load_email_data()
 
-    # Load the status of sent emails
+def remove_line_from_data_file(email, data_file):
+    """Remove the line from data1.txt corresponding to the given email."""
+    with open(data_file, "r") as file:
+        lines = file.readlines()
+
+    with open(data_file, "w") as file:
+        for line in lines:
+            if email not in line:
+                file.write(line)
+
+
+def schedule_emails():
+    """Schedule and send emails based on their scheduled times."""
+    email_schedule, schedule_times = load_email_data()
+
     sent_status = {}
     if os.path.exists('email_status.txt'):
         with open('email_status.txt', 'r') as f:
             for line in f:
-                line = line.strip()
                 if ':' in line:
-                    email_id, status = line.split(':', 1)
+                    email_id, status = line.strip().split(':', 1)
                     sent_status[email_id] = status
 
-    # Check and send each email at the scheduled time
-    while email_schedule:
+    while True:
         current_time = datetime.now()
-        current_time_str = current_time.strftime('%Y-%m-%d %H:%M:%S')
-        current_time = datetime.strptime(current_time_str, '%Y-%m-%d %H:%M:%S')
-        
+        emails_sent_this_cycle = False  # Track if any emails were sent in this cycle
+
         for email in email_schedule[:]:  # Iterate over a copy of the list
             email_id = f"{email['to_email']}_{email['send_time']}"
-            scheduled_time = datetime.strptime(str(email['send_time']), '%Y-%m-%d %H:%M:%S')
-            
-            # Check if the scheduled time has passed and if the email has not been sent
+            scheduled_time = email['send_time']
+
+            # Check if the scheduled time has passed and the email has not been sent
             if current_time >= scheduled_time and sent_status.get(email_id) != 'sent':
                 print(f"Waiting for network connection to send email to {email['to_email']}...")
-                
+
                 # Wait for a network connection before sending
                 while not check_network():
                     print("No network connection. Retrying in 5 seconds...")
                     time.sleep(5)
-                
-                # Send the email
+
                 if send_email(email['to_email'], email['subject'], email['body']):
+                    # Update sent status and remove from the schedule
                     sent_status[email_id] = 'sent'
                     email_schedule.remove(email)  # Remove from schedule after sending
+                    emails_sent_this_cycle = True
 
-                    # Update the status file
                     with open('email_status.txt', 'a') as f:
                         f.write(f"{email_id}:sent\n")
 
-        # Stop the loop if all emails have been sent
+                    # Remove the corresponding line from data1.txt
+                    remove_line_from_data_file(email['to_email'], "data1.txt")
+
+                    # Find and remove the scheduled time entry
+                    index_to_remove = next((i for i, entry in enumerate(schedule_times)
+                                            if entry['send_time'] == email['send_time'].strftime('%Y-%m-%d %H:%M:%S')), None)
+                    if index_to_remove is not None:
+                        schedule_times.pop(index_to_remove)
+
+                        with open("email_schedule.json", "w") as f:
+                            json.dump(schedule_times, f)
+
         if not email_schedule:
             print("All scheduled emails have been sent.")
             break
+        
+        if not emails_sent_this_cycle:
+            print("No emails could be sent this cycle.")
 
-        time.sleep(20)  # Check every 20 seconds
+        time.sleep(20)  # Wait before checking again
 
 if __name__ == "__main__":
     schedule_emails()
