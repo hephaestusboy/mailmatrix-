@@ -1,0 +1,148 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body {
+    background-size: cover; /* Cover the entire viewport */
+    background-position: center; /* Center the image */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Body and background animation */
+body {
+    animation: theme 21s linear infinite;
+    position: relative;
+    margin: 0;
+    padding: 20px;
+    overflow: hidden;
+    height: 100vh;
+}
+
+body::after,
+body::before {
+    content: '';
+    display: block;
+    position: fixed;
+    z-index: -1;
+    top: 0;
+    width: 100vmax;
+    height: 100vmax;
+    background: rgba(0, 0, 0, 0.05);
+    animation: background 90s linear infinite;
+}
+
+body::after {
+    left: 15vw;
+}
+
+body::before {
+    right: 15vw;
+    animation-delay: -30s;
+    animation-direction: reverse;
+}
+
+@keyframes theme {
+    0% { background: #faf6f7; }
+    16% { background: #f8fffe; }
+    33% { background: #59D4E1; }
+    50% { background: #59D4E1; }
+    66% { background: #FA5374; }
+    83% { background: #FA5374; }
+    100% { background: #FA5374; }
+}
+
+@keyframes background {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+form {
+    height: 500px; /* Height of the card */
+    width: 500px; /* Width of the card */
+    background-image: url('bg.png'); /* Set bg.png as the background image for the card */
+    background-size: cover; /* Cover the entire form */
+    background-position: center; /* Center the background image */
+    border-radius: 10px;
+    box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+    padding: 50px 75px;
+}
+
+form h3 {
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 42px;
+    text-align: center;
+    color: black; /* Change text color to black */
+}
+
+label {
+    display: block;
+    margin-top: 30px;
+    font-size: 16px;
+    font-weight: 500;
+    color: black; /* Change text color to black */
+}
+
+input {
+    display: block;
+    height: 50px;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.07); /* Input field background color */
+    border-radius: 3px;
+    padding: 20px 10px;
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 300;
+    color: black; /* Change text color to black */
+}
+
+::placeholder {
+    color: #e5e5e5; /* Placeholder color */
+}
+
+button {
+    margin-top: 50px;
+    width: 100%;
+    background-color: #639aba; /* Button background */
+    color: rgb(250, 247, 247); /* Button text color */
+    padding: 15px 0;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #e5e5e5; /* Change hover effect */
+}
+
+.social {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+.social div {
+    background-color: rgba(255, 255, 255, 0.27); /* Social buttons background */
+    border-radius: 3px;
+    padding: 5px 10px;
+    color: black; /* Change social button text color to black */
+    text-align: center;
+    margin: 0 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.social div:hover {
+    background-color: rgba(255, 255, 255, 0.47);
+}
+
+.social i {
+    margin-right: 4px;
+}

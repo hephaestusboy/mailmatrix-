@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MailMatrix Login</title>
+    <link rel="stylesheet" href="styles1.css">
+    <script src="pg1.js" defer></script>
+</head>
+<body>
+    <div class="background">
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+    <form id="loginForm" onsubmit="return handleLogin(event)">
+        <h3>Login</h3>
+        <div id="error-message" style="color: red; display: none;"></div> <!-- Error message -->
+        <label for="username">Sender Mail ID</label>
+        <input type="email" placeholder="Email" id="username" required>
+        <label for="password">Password</label>
+        <input type="password" placeholder="Password" id="password" required>
+        <button type="submit">Log In</button>
+    </form>
+</body>
+</html>
