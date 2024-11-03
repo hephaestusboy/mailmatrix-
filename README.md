@@ -8,9 +8,9 @@
 
 
 ### Team Members
-- Team Lead: [Alan Mathew] - [Muthoot Institute]
-- Member 2: [Alicia Therese Dominic] - [Muthoot Institute]
-- Member 3: [Devika Unnikrishnan] - [Muthoot Institute]
+- Team Lead: [Alan Mathew] - [Muthoot Institute of Technology & Science,Varikoli]
+- Member 2: [Alicia Therese Dominic] - [Muthoot Institute of Technology & Science,Varikoli]
+- Member 3: [Devika Unnikrishnan] - [Muthoot Institute of Technology & Science,Varikoli]
 
 ### Project Description
 [A simple program for delayed sending of mail]
@@ -28,11 +28,6 @@ For Software:
 - []
 - []
 - [Openrouteservice, ChatGPT]
-
-For Hardware:
-- [List main components]
-- [List specifications]
-- [List tools required]
 
 ### Implementation
 For Software:
