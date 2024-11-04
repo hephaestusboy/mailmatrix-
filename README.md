@@ -16,7 +16,7 @@
 [A simple program for delayed sending of mail. Instead of instant delivery, emails are delayed to mimic the waiting time of traditional mail, adding a nostalgic twist to modern communication.]
 
 ### The Problem (that doesn't exist)
-[In today's world,the instantanious connectivity of email has reduced anticipation of people. MailMatrix addresses this "problem" by slowing down email delivery, simulating the waiting period of traditional mail based]
+[In today's world,the instantaneous connectivity of email has reduced anticipation of people. MailMatrix addresses this "problem" by slowing down email delivery, simulating the waiting period of traditional mail]
 
 ### The Solution (that nobody asked for)
 [Email now follows the traveling time of normal mail(postal) service re-creating the anticipation of traditional mail in a digital format.]
